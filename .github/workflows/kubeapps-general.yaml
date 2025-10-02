@@ -170,32 +170,32 @@ jobs:
         if: needs.linters.result != 'success'
         run: exit 1
 
-  # test_go:
-  #     needs:
-  #       - setup
-  #     runs-on: ubuntu-latest
-  #     services:
-  #       postgresql:
-  #         image: bitnami/postgresql:${{needs.setup.outputs.postgresql_version}}
-  #         options: >-
-  #           --health-cmd "pg_isready -U postgres"
-  #           --health-interval 10s
-  #           --health-timeout 5s
-  #           --health-retries 5
-  #         ports:
-  #           - 5432:5432
-  #         env:
-  #           ALLOW_EMPTY_PASSWORD: "yes"
-  #     steps:
-  #       - uses: actions/checkout@v4
-  #       - name: Set up Go
-  #         uses: actions/setup-go@v5
-  #         with:
-  #           go-version: ${{ env.GOLANG_VERSION }}
-  #       - name: Run go unit tests
-  #         run: make test
-  #       - run: make test-db
-  #
+  test_go:
+    needs:
+      - setup
+    runs-on: ubuntu-latest
+    services:
+      postgresql:
+        image: bitnami/postgresql:${{needs.setup.outputs.postgresql_version}}
+        options: >-
+          --health-cmd "pg_isready -U postgres"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          - 5432:5432
+        env:
+          ALLOW_EMPTY_PASSWORD: "yes"
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: ${{ env.GOLANG_VERSION }}
+      - name: Run go unit tests
+        run: make test
+      - run: make test-db
+
   #   test_dashboard:
   #     runs-on: ubuntu-latest
   #     needs:
