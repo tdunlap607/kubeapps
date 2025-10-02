@@ -185,7 +185,7 @@ jobs:
         ports:
           - 5432:5432
         env:
-          ALLOW_EMPTY_PASSWORD: "yes"
+          POSTGRES_HOST_AUTH_METHOD: trust
     steps:
       - uses: actions/checkout@v4
       - name: Set up Go
