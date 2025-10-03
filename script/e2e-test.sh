@@ -449,15 +449,16 @@ helm dep up "${ROOT_DIR}/chart/kubeapps"
 kubectl create ns kubeapps
 GLOBAL_REPOS_NS=kubeapps-repos-global
 
-if [[ -n "${TEST_UPGRADE:-}" ]]; then
-  # To test the upgrade, first install the latest version published
-  info "Installing latest Kubeapps chart available"
-  installOrUpgradeKubeapps bitnami/kubeapps \
-    "--set" "apprepository.initialRepos={}"
-
-  info "Waiting for Kubeapps components to be ready (bitnami chart)..."
-  k8s_wait_for_deployment kubeapps kubeapps-ci
-fi
+# Commenting out TEST_UPGRADE - Bitnami chart is deprecated and we only test with local CI-built images
+# if [[ -n "${TEST_UPGRADE:-}" ]]; then
+#   # To test the upgrade, first install the latest version published
+#   info "Installing latest Kubeapps chart available"
+#   installOrUpgradeKubeapps bitnami/kubeapps \
+#     "--set" "apprepository.initialRepos={}"
+#
+#   info "Waiting for Kubeapps components to be ready (bitnami chart)..."
+#   k8s_wait_for_deployment kubeapps kubeapps-ci
+# fi
 
 # Install ChartMuseum
 installChartMuseum "${CHARTMUSEUM_VERSION}"
