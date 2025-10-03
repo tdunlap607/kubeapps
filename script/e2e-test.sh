@@ -446,6 +446,18 @@ fi
 
 helm repo add bitnami https://charts.bitnami.com/bitnami
 helm dep up "${ROOT_DIR}/chart/kubeapps"
+
+# Extract dependency charts from .tgz to fix Helm template loading issues with OCI dependencies
+info "Extracting chart dependencies..."
+cd "${ROOT_DIR}/chart/kubeapps/charts"
+for tgz in *.tgz; do
+  if [[ -f "$tgz" ]]; then
+    info "Extracting $tgz"
+    tar -xzf "$tgz"
+  fi
+done
+cd "${ROOT_DIR}"
+
 kubectl create ns kubeapps
 GLOBAL_REPOS_NS=kubeapps-repos-global
 
