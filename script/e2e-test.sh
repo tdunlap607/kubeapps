@@ -346,11 +346,20 @@ installOrUpgradeKubeapps() {
     --set apprepository.globalReposNamespaceSuffix=-repos-global
     --set global.security.allowInsecureImages=true
     --wait
-    --timeout=10m
+    --timeout=5m
     --debug)
 
   echo "${cmd[@]}"
-  "${cmd[@]}"
+  if ! "${cmd[@]}"; then
+    warn "Helm install failed or timed out. Checking pod status..."
+    info "All pods in kubeapps namespace:"
+    kubectl get pods -n kubeapps -o wide
+    info "Dashboard pod details:"
+    kubectl describe pods -n kubeapps -l app.kubernetes.io/component=dashboard || true
+    info "Dashboard pod logs:"
+    kubectl logs -n kubeapps -l app.kubernetes.io/component=dashboard --tail=100 || true
+    return 1
+  fi
 }
 
 ########################################################################################################################
