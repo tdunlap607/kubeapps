@@ -300,6 +300,31 @@ installOrUpgradeKubeapps() {
   local chartSource=$1
   # Install Kubeapps
   info "Installing Kubeapps from ${chartSource}..."
+
+  # Check if chart source exists and is valid
+  if [[ "${chartSource}" == bitnami/kubeapps ]]; then
+    info "Using Helm chart from Bitnami repository"
+    if ! helm search repo bitnami/kubeapps --version '>0.0.0' >/dev/null 2>&1; then
+      warn "Bitnami kubeapps chart not found in repositories"
+      info "Available Bitnami charts:"
+      helm search repo bitnami | head -20
+    else
+      info "Bitnami kubeapps chart is available:"
+      helm search repo bitnami/kubeapps
+    fi
+  else
+    info "Using local Helm chart from filesystem"
+    if [[ ! -f "${chartSource}/Chart.yaml" ]]; then
+      warn "Chart.yaml not found at ${chartSource}/Chart.yaml"
+      info "Directory contents:"
+      ls -la "${chartSource}" || true
+    else
+      info "Local chart exists at ${chartSource}"
+      info "Chart info:"
+      grep -E '^(name|version|appVersion):' "${chartSource}/Chart.yaml" || true
+    fi
+  fi
+
   kubectl -n kubeapps delete secret localhost-tls || true
 
   # See https://stackoverflow.com/a/36296000 for "${arr[@]+"${arr[@]}"}" notation.
