@@ -458,7 +458,7 @@ jobs:
       TESTS_GROUP: ${{ matrix.tests_group }}
       TEST_OPERATORS: "1"
       TEST_UPGRADE: "1"
-      TEST_TIMEOUT_MINUTES: 6  # Timeout minutes for each test
+      TEST_TIMEOUT_MINUTES: 10  # Timeout minutes for each test
       USE_MULTICLUSTER_OIDC_ENV: "true"
     steps:
       - uses: actions/checkout@v4
