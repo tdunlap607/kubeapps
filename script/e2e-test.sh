@@ -203,9 +203,14 @@ pushChart() {
   sed -i "0,/^\([[:space:]]*description: *\).*/s//\1${description}/" "./${chart}-${version}/${chart}/Chart.yaml"
 
   # Update image references from bitnami/ to bitnamilegacy/ since Bitnami images are deprecated
+  echo "DEBUG: Checking for values.yaml at ./${chart}-${version}/${chart}/values.yaml"
   if [[ -f "./${chart}-${version}/${chart}/values.yaml" ]]; then
-    info "Updating ${chart} chart to use bitnamilegacy images"
+    echo "DEBUG: Found values.yaml, updating bitnami images to bitnamilegacy"
     sed -i "s|repository: bitnami/|repository: bitnamilegacy/|g" "./${chart}-${version}/${chart}/values.yaml"
+    echo "DEBUG: Replacement complete. Checking result:"
+    grep "repository:" "./${chart}-${version}/${chart}/values.yaml" | head -3
+  else
+    echo "DEBUG: values.yaml NOT FOUND at ./${chart}-${version}/${chart}/values.yaml"
   fi
 
   helm package "./${chart}-${version}/${chart}" -d .
