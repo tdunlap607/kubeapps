@@ -205,7 +205,7 @@ pushChart() {
   # Update image references from bitnami/ to bitnamilegacy/ since Bitnami images are deprecated
   if [[ -f "./${chart}-${version}/${chart}/values.yaml" ]]; then
     info "Updating ${chart} chart to use bitnamilegacy images"
-    sed -i "s|docker.io/bitnami/|docker.io/bitnamilegacy/|g" "./${chart}-${version}/${chart}/values.yaml"
+    sed -i "s|repository: bitnami/|repository: bitnamilegacy/|g" "./${chart}-${version}/${chart}/values.yaml"
   fi
 
   helm package "./${chart}-${version}/${chart}" -d .
