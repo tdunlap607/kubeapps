@@ -201,6 +201,13 @@ pushChart() {
   # ref https://gist.github.com/andre3k1/e3a1a7133fded5de5a9ee99c87c6fa0d
   sed -i "s/name: ${chart}/name: ${prefix}${chart}/" "./${chart}-${version}/${chart}/Chart.yaml"
   sed -i "0,/^\([[:space:]]*description: *\).*/s//\1${description}/" "./${chart}-${version}/${chart}/Chart.yaml"
+
+  # Update image references from bitnami/ to bitnamilegacy/ since Bitnami images are deprecated
+  if [[ -f "./${chart}-${version}/${chart}/values.yaml" ]]; then
+    info "Updating ${chart} chart to use bitnamilegacy images"
+    sed -i "s|docker.io/bitnami/|docker.io/bitnamilegacy/|g" "./${chart}-${version}/${chart}/values.yaml"
+  fi
+
   helm package "./${chart}-${version}/${chart}" -d .
 
   pushChartToChartMuseum "${chart}" "${version}" "${prefix}${chart}-${version}.tgz"
