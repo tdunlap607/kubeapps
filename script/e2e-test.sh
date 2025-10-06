@@ -206,9 +206,12 @@ pushChart() {
   echo "DEBUG: Checking for values.yaml at ./${chart}-${version}/${chart}/values.yaml"
   if [[ -f "./${chart}-${version}/${chart}/values.yaml" ]]; then
     echo "DEBUG: Found values.yaml, updating bitnami images to bitnamilegacy"
+    # Replace bitnami repository with bitnamilegacy
     sed -i "s|repository: bitnami/|repository: bitnamilegacy/|g" "./${chart}-${version}/${chart}/values.yaml"
-    echo "DEBUG: Replacement complete. Checking result:"
-    grep "repository:" "./${chart}-${version}/${chart}/values.yaml" | head -3
+    # Remove -debian-XX-rYY suffixes from tags as bitnamilegacy only has base version tags
+    sed -i "s|tag: \([0-9.]*\)-debian-[0-9]*-r[0-9]*|tag: \1|g" "./${chart}-${version}/${chart}/values.yaml"
+    echo "DEBUG: Replacement complete. All repository and tag references:"
+    grep -E "repository:|tag:" "./${chart}-${version}/${chart}/values.yaml" | grep -v "^[[:space:]]*#"
   else
     echo "DEBUG: values.yaml NOT FOUND at ./${chart}-${version}/${chart}/values.yaml"
   fi
