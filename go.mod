@@ -61,7 +61,7 @@ require (
 	k8s.io/kubectl v0.29.15
 	k8s.io/utils v0.0.0-20251002143259-bc988d571ff4
 	oras.land/oras-go v1.2.6
-	oras.land/oras-go/v2 v2.5.0
+	oras.land/oras-go/v2 v2.6.0
 	sigs.k8s.io/controller-runtime v0.17.6
 	sigs.k8s.io/yaml v1.4.0
 )
