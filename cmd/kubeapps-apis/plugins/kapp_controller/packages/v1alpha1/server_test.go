@@ -6426,7 +6426,7 @@ func TestGetInstalledPackageResourceRefs(t *testing.T) {
 
 			// We cast the dynamic client to a fake client, so we can set the response
 			fakeDiscovery, _ := typedClient.Discovery().(*disfake.FakeDiscovery)
-			fakeDiscovery.Fake.Resources = apiResources
+			fakeDiscovery.Fake.Resources = apiResources //nolint:staticcheck
 
 			dynClient := dynfake.NewSimpleDynamicClientWithCustomListKinds(
 				k8sruntime.NewScheme(),
@@ -7214,7 +7214,7 @@ func TestUpdatePackageRepository(t *testing.T) {
 			Data: map[string][]byte{},
 		}
 		if managed {
-			secret.ObjectMeta.Annotations = map[string]string{annotationManagedByKey: annotationManagedByValue}
+			secret.ObjectMeta.Annotations = map[string]string{annotationManagedByKey: annotationManagedByValue} //nolint:staticcheck
 			secret.ObjectMeta.OwnerReferences = []metav1.OwnerReference{
 				{
 					APIVersion: defaultTypeMeta.APIVersion,
@@ -9912,7 +9912,7 @@ kappController:
 				if err != nil {
 					log.Fatalf("%s", err)
 				}
-				defer os.Remove(f.Name()) // clean up
+				defer os.Remove(f.Name()) // clean up //nolint:errcheck
 				if _, err := f.Write(pluginJSONConf); err != nil {
 					log.Fatalf("%s", err)
 				}

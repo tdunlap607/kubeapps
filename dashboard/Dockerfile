@@ -12,5 +12,5 @@ COPY . /app
 RUN yarn run prettier-check && yarn run ts-compile-check
 RUN yarn run build
 
-FROM chainguard/nginx:latest
+FROM bitnamilegacy/nginx:1.27.3-debian-12-r0
 COPY --from=build /app/build /app

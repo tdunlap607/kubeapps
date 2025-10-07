@@ -729,10 +729,10 @@ func (s *Server) UpdateInstalledPackage(ctx context.Context, request *connect.Re
 	// Allow this PackageInstall to be downgraded
 	// https://carvel.dev/kapp-controller/docs/v0.32.0/package-consumer-concepts/#downgrading
 	if s.pluginConfig.defaultAllowDowngrades {
-		if pkgInstall.ObjectMeta.Annotations == nil {
-			pkgInstall.ObjectMeta.Annotations = map[string]string{}
+		if pkgInstall.ObjectMeta.Annotations == nil { //nolint:staticcheck
+			pkgInstall.ObjectMeta.Annotations = map[string]string{} //nolint:staticcheck
 		}
-		pkgInstall.ObjectMeta.Annotations[kappctrlpackageinstall.DowngradableAnnKey] = ""
+		pkgInstall.ObjectMeta.Annotations[kappctrlpackageinstall.DowngradableAnnKey] = "" //nolint:staticcheck
 	}
 
 	// Update the rest of the fields

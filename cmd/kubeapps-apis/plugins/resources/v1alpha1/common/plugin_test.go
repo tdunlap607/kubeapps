@@ -75,7 +75,7 @@ resources:
 				if err != nil {
 					log.Fatalf("%s", err)
 				}
-				defer os.Remove(f.Name()) // clean up
+				defer os.Remove(f.Name()) // clean up //nolint:errcheck
 				if _, err := f.Write(pluginJSONConf); err != nil {
 					log.Fatalf("%s", err)
 				}

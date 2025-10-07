@@ -126,7 +126,7 @@ func (cp ClientProvider) ApiExt(headers http.Header, cluster string) (apiext.Int
 
 func (cp ClientProvider) GetClients(headers http.Header, cluster string) (*ClientGetter, error) {
 	if cp.ClientsFunc == nil {
-		return nil, connect.NewError(connect.CodeFailedPrecondition, fmt.Errorf("Clients provider function is not set"))
+		return nil, connect.NewError(connect.CodeFailedPrecondition, fmt.Errorf("Clients provider function is not set")) //nolint:staticcheck
 	}
 	return cp.ClientsFunc(headers, cluster)
 }
@@ -148,7 +148,7 @@ type FixedClusterClientProvider struct {
 func (bcp FixedClusterClientProvider) Typed(ctx context.Context) (kubernetes.Interface, error) {
 	clientGetter, err := bcp.GetClients(ctx)
 	if err != nil {
-		return nil, connect.NewError(connect.CodeFailedPrecondition, fmt.Errorf("Unable to build clients due to: %w", err))
+		return nil, connect.NewError(connect.CodeFailedPrecondition, fmt.Errorf("Unable to build clients due to: %w", err)) //nolint:staticcheck
 	}
 	return clientGetter.Typed()
 }
