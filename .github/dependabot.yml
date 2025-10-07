@@ -13,7 +13,6 @@ updates:
       interval: "daily"
       time: "00:00"
     open-pull-requests-limit: 10
-    security-updates-only: true
 
   - package-ecosystem: "gomod"
     directory: "/"
@@ -21,7 +20,6 @@ updates:
       interval: "daily"
       time: "01:00"
     open-pull-requests-limit: 10
-    security-updates-only: true
 
   - package-ecosystem: "cargo"
     directory: "/cmd/pinniped-proxy"
@@ -29,7 +27,6 @@ updates:
       interval: "daily"
       time: "02:00"
     open-pull-requests-limit: 10
-    security-updates-only: true
     groups:
       kube:
         patterns:
@@ -43,7 +40,6 @@ updates:
       interval: "daily"
       time: "02:30"
     open-pull-requests-limit: 10
-    security-updates-only: true
 
   - package-ecosystem: "npm"
     directory: "/integration"
@@ -51,7 +47,6 @@ updates:
       interval: "daily"
       time: "03:00"
     open-pull-requests-limit: 10
-    security-updates-only: true
 
   - package-ecosystem: "github-actions"
     directory: "/"
@@ -59,4 +54,3 @@ updates:
       interval: "daily"
       time: "04:00"
     open-pull-requests-limit: 10
-    security-updates-only: true
