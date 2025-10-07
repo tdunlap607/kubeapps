@@ -55,7 +55,7 @@
     "react-helmet": "^6.1.0",
     "react-intl": "^6.6.8",
     "react-markdown": "^8.0.7",
-    "react-minimal-pie-chart": "^8.4.0",
+    "react-minimal-pie-chart": "^9.1.1",
     "react-monaco-editor": "^0.56.1",
     "react-redux": "^7.2.9",
     "react-router-dom": "^6.26.0",

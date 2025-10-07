@@ -3289,11 +3289,6 @@
   resolved "https://registry.yarnpkg.com/@types/stack-utils/-/stack-utils-2.0.3.tgz#6209321eb2c1712a7e7466422b8cb1fc0d9dd5d8"
   integrity sha512-9aEbYZ3TbYMznPdcdr3SmIrLXwC/AKZXQeCf9Pgao5CKb8CyHuEX5jzWPTkvregvhRJHcpRO6BFoGW9ycaOkYw==
 
-"@types/svg-path-parser@^1.1.3":
-  version "1.1.6"
-  resolved "https://registry.yarnpkg.com/@types/svg-path-parser/-/svg-path-parser-1.1.6.tgz#c9c2b7c45a28e4051e46045f7899d63c592c2769"
-  integrity sha512-3sw6pk91pEtW6W7hRrJ9ZkAgPiJSaNdh7iY8rVOy7buajpQuy2J9A0ZUaiOVcbFvl0p7J+Ne4012muCE/MB+hQ==
-
 "@types/swagger-ui-react@^4.18.3":
   version "4.18.3"
   resolved "https://registry.yarnpkg.com/@types/swagger-ui-react/-/swagger-ui-react-4.18.3.tgz#4f6fd3f9fa47d0a6684d2aecf1511c645bf8c71f"
@@ -12247,12 +12242,12 @@ react-markdown@^8.0.7:
     unist-util-visit "^4.0.0"
     vfile "^5.0.0"
 
-react-minimal-pie-chart@^8.4.0:
-  version "8.4.0"
-  resolved "https://registry.yarnpkg.com/react-minimal-pie-chart/-/react-minimal-pie-chart-8.4.0.tgz#c784dd3dffa9aee5c5396c0cb8ece814fd02e0e8"
-  integrity sha512-A0wG+6mRjboyMxMDrzQNWp+2+GSn2ai4ERzRFHLp/OCC45PwIR1DpDVjwedawO+5AtFpzBRQKSFm3ZUxrqIEzA==
+react-minimal-pie-chart@^9.1.1:
+  version "9.1.1"
+  resolved "https://registry.yarnpkg.com/react-minimal-pie-chart/-/react-minimal-pie-chart-9.1.1.tgz#4fc7f26557ef6af7875323e631763c2acd4eb359"
+  integrity sha512-zirxMg8ETFKmncvreel4ooMvHIrAXWQAyXHNnqxKTtJeM2m8ipNRhsCxGXszXgwz9zUliFhWceNp6q4lTxHlJQ==
   dependencies:
-    "@types/svg-path-parser" "^1.1.3"
+    svg-partial-circle "^1.0.0"
 
 react-monaco-editor@^0.56.1:
   version "0.56.1"
@@ -14032,6 +14027,11 @@ svg-parser@^2.0.2:
   version "2.0.4"
   resolved "https://registry.yarnpkg.com/svg-parser/-/svg-parser-2.0.4.tgz#fdc2e29e13951736140b76cb122c8ee6630eb6b5"
   integrity sha512-e4hG1hRwoOdRb37cIMSgzNsxyzKfayW6VOflrwvR+/bzrkyxY/31WkbgnQpgtrNp1SdpJvpUAGTa/ZoiPNDuRQ==
+
+svg-partial-circle@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/svg-partial-circle/-/svg-partial-circle-1.0.0.tgz#1121e8e03bdd895b34d655d75b98b8fc7086347e"
+  integrity sha512-jDWgNzrlpsGo9A7/tdjCy6+1RzeeANYV1a3JtNYC/0ZXI3U+3VMucuNv7JuKti9VVBdyNxNO1CZs/k0xS1lUFA==
 
 svg-tags@^1.0.0:
   version "1.0.0"
