@@ -74,6 +74,7 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       golang_version: ${{ steps.set-outputs.outputs.golang_version }}
+      golangci_lint_version: ${{ steps.set-outputs.outputs.golangci_lint_version }}
       img_modifier: ${{ steps.set-outputs.outputs.img_modifier }}
       img_prefix: ${{ steps.set-outputs.outputs.img_prefix }}
       img_dev_tag: ${{ steps.set-outputs.outputs.img_dev_tag }}
