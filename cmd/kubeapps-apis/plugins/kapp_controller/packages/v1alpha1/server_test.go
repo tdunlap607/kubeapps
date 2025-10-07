@@ -7215,7 +7215,7 @@ func TestUpdatePackageRepository(t *testing.T) {
 		}
 		if managed {
 			secret.ObjectMeta.Annotations = map[string]string{annotationManagedByKey: annotationManagedByValue} //nolint:staticcheck
-			secret.ObjectMeta.OwnerReferences = []metav1.OwnerReference{
+			secret.ObjectMeta.OwnerReferences = []metav1.OwnerReference{                                        //nolint:staticcheck
 				{
 					APIVersion: defaultTypeMeta.APIVersion,
 					Kind:       defaultTypeMeta.Kind,
@@ -8201,7 +8201,7 @@ func TestDeletePackageRepository(t *testing.T) {
 		{
 			name: "delete - with plugin managed secret",
 			existingObjects: []k8sruntime.Object{func(r *packagingv1alpha1.PackageRepository) *packagingv1alpha1.PackageRepository {
-				r.ObjectMeta.UID = "globalrepo"
+				r.ObjectMeta.UID = "globalrepo" //nolint:staticcheck
 				r.Spec.Fetch.ImgpkgBundle.SecretRef = &kappctrlv1alpha1.AppFetchLocalRef{
 					Name: "my-secret",
 				}
@@ -8330,7 +8330,7 @@ func TestGetPackageRepositoryDetail(t *testing.T) {
 		{
 			name: "check ref",
 			repositoryCustomizer: func(repository *packagingv1alpha1.PackageRepository) *packagingv1alpha1.PackageRepository {
-				repository.ObjectMeta.Name = "foo"
+				repository.ObjectMeta.Name = "foo" //nolint:staticcheck
 				repository.Name = "foo"
 				return repository
 			},
@@ -8353,7 +8353,7 @@ func TestGetPackageRepositoryDetail(t *testing.T) {
 		{
 			name: "check namespace scoped",
 			repositoryCustomizer: func(repository *packagingv1alpha1.PackageRepository) *packagingv1alpha1.PackageRepository {
-				repository.ObjectMeta.Namespace = "privatens"
+				repository.ObjectMeta.Namespace = "privatens" //nolint:staticcheck
 				return repository
 			},
 			requestCustomizer: func(request *corev1.GetPackageRepositoryDetailRequest) *corev1.GetPackageRepositoryDetailRequest {
@@ -9912,7 +9912,7 @@ kappController:
 				if err != nil {
 					log.Fatalf("%s", err)
 				}
-				defer os.Remove(f.Name()) // clean up //nolint:errcheck
+				defer os.Remove(f.Name()) //nolint:errcheck // clean up
 				if _, err := f.Write(pluginJSONConf); err != nil {
 					log.Fatalf("%s", err)
 				}

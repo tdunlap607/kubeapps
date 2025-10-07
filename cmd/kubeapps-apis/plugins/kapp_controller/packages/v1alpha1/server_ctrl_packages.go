@@ -62,7 +62,7 @@ func (s *Server) GetAvailablePackageSummaries(ctx context.Context, request *conn
 		if pageSize > 0 {
 			startAt = itemOffset
 			if startAt > len(pkgMetadatas) {
-				return nil, connect.NewError(connect.CodeInvalidArgument, fmt.Errorf("Invalid pagination arguments %v", request.Msg.GetPaginationOptions()))
+				return nil, connect.NewError(connect.CodeInvalidArgument, fmt.Errorf("Invalid pagination arguments %v", request.Msg.GetPaginationOptions())) //nolint:staticcheck
 			}
 			pkgMetadatas = pkgMetadatas[startAt:]
 			if len(pkgMetadatas) > int(pageSize) {
@@ -99,7 +99,7 @@ func (s *Server) GetAvailablePackageSummaries(ctx context.Context, request *conn
 			// where a package is present *without* corresponding metadata.
 			for currentPkg.Spec.RefName != pkgMetadata.Name {
 				if currentPkg.Spec.RefName > pkgMetadata.Name {
-					return nil, connect.NewError(connect.CodeInternal, fmt.Errorf("Unexpected order for kapp-controller packages, expected %q, found %q", pkgMetadata.Name, currentPkg.Spec.RefName))
+					return nil, connect.NewError(connect.CodeInternal, fmt.Errorf("Unexpected order for kapp-controller packages, expected %q, found %q", pkgMetadata.Name, currentPkg.Spec.RefName)) //nolint:staticcheck
 				}
 				log.Errorf("Package %q did not have a corresponding metadata (want %q)", currentPkg.Spec.RefName, pkgMetadata.Name)
 				currentPkg = <-getPkgsChannel

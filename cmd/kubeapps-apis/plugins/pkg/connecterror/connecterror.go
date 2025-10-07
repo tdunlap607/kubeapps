@@ -23,7 +23,7 @@ func FromK8sError(verb, resource, identifier string, err error) error {
 	} else if errors.IsUnauthorized(err) {
 		return connect.NewError(connect.CodeUnauthenticated, fmt.Errorf("Authorization required to %s the %s '%s' due to '%w'", verb, resource, identifier, err)) //nolint:staticcheck
 	} else if errors.IsAlreadyExists(err) {
-		return connect.NewError(connect.CodeAlreadyExists, fmt.Errorf("Cannot %s the %s '%s' due to '%w' as it already exists", verb, resource, identifier, err))
+		return connect.NewError(connect.CodeAlreadyExists, fmt.Errorf("Cannot %s the %s '%s' due to '%w' as it already exists", verb, resource, identifier, err)) //nolint:staticcheck
 	}
-	return connect.NewError(connect.CodeInternal, fmt.Errorf("Unable to %s the %s '%s' due to '%w'", verb, resource, identifier, err))
+	return connect.NewError(connect.CodeInternal, fmt.Errorf("Unable to %s the %s '%s' due to '%w'", verb, resource, identifier, err)) //nolint:staticcheck
 }

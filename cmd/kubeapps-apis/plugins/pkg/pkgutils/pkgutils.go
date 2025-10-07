@@ -148,23 +148,23 @@ func IsValidChart(chart *models.Chart) (bool, error) {
 		return false, connect.NewError(connect.CodeInternal, fmt.Errorf("Required field .Name not found on helm chart: %v", chart)) //nolint:staticcheck
 	}
 	if chart.ID == "" {
-		return false, connect.NewError(connect.CodeInternal, fmt.Errorf("Required field .ID not found on helm chart: %v", chart))
+		return false, connect.NewError(connect.CodeInternal, fmt.Errorf("Required field .ID not found on helm chart: %v", chart)) //nolint:staticcheck
 	}
 	if chart.Repo == nil {
-		return false, connect.NewError(connect.CodeInternal, fmt.Errorf("Required field .Repo not found on helm chart: %v", chart))
+		return false, connect.NewError(connect.CodeInternal, fmt.Errorf("Required field .Repo not found on helm chart: %v", chart)) //nolint:staticcheck
 	}
 	if len(chart.ChartVersions) == 0 {
-		return false, connect.NewError(connect.CodeInternal, fmt.Errorf("Required field .chart.ChartVersions not found on helm chart or is empty: %v", chart))
+		return false, connect.NewError(connect.CodeInternal, fmt.Errorf("Required field .chart.ChartVersions not found on helm chart or is empty: %v", chart)) //nolint:staticcheck
 	} else {
 		for _, chartVersion := range chart.ChartVersions {
 			if chartVersion.Version == "" {
-				return false, connect.NewError(connect.CodeInternal, fmt.Errorf("Required field .ChartVersions[i].Version not found on helm chart: %v", chart))
+				return false, connect.NewError(connect.CodeInternal, fmt.Errorf("Required field .ChartVersions[i].Version not found on helm chart: %v", chart)) //nolint:staticcheck
 			}
 		}
 	}
 	for _, maintainer := range chart.Maintainers {
 		if maintainer.Name == "" {
-			return false, connect.NewError(connect.CodeInternal, fmt.Errorf("Required field .Maintainers[i].Name not found on helm chart: %v", chart))
+			return false, connect.NewError(connect.CodeInternal, fmt.Errorf("Required field .Maintainers[i].Name not found on helm chart: %v", chart)) //nolint:staticcheck
 		}
 	}
 	return true, nil
