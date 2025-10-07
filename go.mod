@@ -8,7 +8,7 @@ go 1.25.1
 require (
 	carvel.dev/vendir v0.42.0
 	github.com/DATA-DOG/go-sqlmock v1.5.2
-	github.com/Masterminds/semver/v3 v3.3.1
+	github.com/Masterminds/semver/v3 v3.4.0
 	github.com/adhocore/gronx v1.19.6
 	github.com/ahmetb/go-linq/v3 v3.2.0
 	github.com/bufbuild/connect-go v1.10.0
@@ -21,7 +21,7 @@ require (
 	github.com/fluxcd/helm-controller/api v0.37.4
 	github.com/fluxcd/pkg/apis/meta v1.4.0
 	github.com/fluxcd/pkg/oci v0.36.0
-	github.com/fluxcd/pkg/version v0.3.0
+	github.com/fluxcd/pkg/version v0.10.0
 	github.com/fluxcd/source-controller/api v1.2.5
 	github.com/go-redis/redis/v8 v8.11.5
 	github.com/go-redis/redismock/v8 v8.11.5
