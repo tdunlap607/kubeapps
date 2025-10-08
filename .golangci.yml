@@ -10,6 +10,7 @@ linters:
         - all
         - '-ST1005'  # Ignore capitalized error strings
         - '-ST1003'  # Ignore ALL_CAPS
+        - '-ST1016'  # Ignore method names
   exclusions:
     presets:
       - comments
