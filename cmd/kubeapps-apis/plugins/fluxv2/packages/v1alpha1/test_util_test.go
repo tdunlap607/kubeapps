@@ -124,6 +124,10 @@ func (w *withWatchWrapper) Watch(ctx context.Context, list client.ObjectList, op
 	}
 }
 
+func (w *withWatchWrapper) Apply(ctx context.Context, obj runtime.ApplyConfiguration, opts ...client.ApplyOption) error {
+	return w.delegate.Apply(ctx, obj, opts...)
+}
+
 // these are helpers to compare slices ignoring order
 func lessAvailablePackageFunc(p1, p2 *corev1.AvailablePackageSummary) bool {
 	return p1.DisplayName < p2.DisplayName
