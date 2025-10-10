@@ -29,10 +29,9 @@ import (
 	"github.com/cppforlife/go-cli-ui/ui"
 	"github.com/google/go-cmp/cmp"
 	"github.com/google/go-cmp/cmp/cmpopts"
-	kappctrlv1alpha1 "github.com/vmware-tanzu/carvel-kapp-controller/pkg/apis/kappctrl/v1alpha1"
-	packagingv1alpha1 "github.com/vmware-tanzu/carvel-kapp-controller/pkg/apis/packaging/v1alpha1"
-	datapackagingv1alpha1 "github.com/vmware-tanzu/carvel-kapp-controller/pkg/apiserver/apis/datapackaging/v1alpha1"
-	kappctrlpackageinstall "github.com/vmware-tanzu/carvel-kapp-controller/pkg/packageinstall"
+	kappctrlv1alpha1 "carvel.dev/kapp-controller/pkg/apis/kappctrl/v1alpha1"
+	packagingv1alpha1 "carvel.dev/kapp-controller/pkg/apis/packaging/v1alpha1"
+	datapackagingv1alpha1 "carvel.dev/kapp-controller/pkg/apiserver/apis/datapackaging/v1alpha1"
 	ctlapp "github.com/vmware-tanzu/carvel-kapp/pkg/kapp/app"
 	kappcmdapp "github.com/vmware-tanzu/carvel-kapp/pkg/kapp/cmd/app"
 	kappcmdcore "github.com/vmware-tanzu/carvel-kapp/pkg/kapp/cmd/core"
@@ -5431,7 +5430,7 @@ func TestCreateInstalledPackage(t *testing.T) {
 				ObjectMeta: metav1.ObjectMeta{
 					Namespace:   "default",
 					Name:        "my-installation",
-					Annotations: map[string]string{kappctrlpackageinstall.DowngradableAnnKey: ""},
+					Annotations: map[string]string{downgradableAnnKey: ""},
 				},
 				Spec: packagingv1alpha1.PackageInstallSpec{
 					ServiceAccountName: "default",

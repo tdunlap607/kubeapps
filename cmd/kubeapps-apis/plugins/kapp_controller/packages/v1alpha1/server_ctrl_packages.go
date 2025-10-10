@@ -12,9 +12,8 @@ import (
 	"carvel.dev/vendir/pkg/vendir/versions"
 	vendirversions "carvel.dev/vendir/pkg/vendir/versions/v1alpha1"
 	"github.com/bufbuild/connect-go"
-	packagingv1alpha1 "github.com/vmware-tanzu/carvel-kapp-controller/pkg/apis/packaging/v1alpha1"
-	datapackagingv1alpha1 "github.com/vmware-tanzu/carvel-kapp-controller/pkg/apiserver/apis/datapackaging/v1alpha1"
-	kappctrlpackageinstall "github.com/vmware-tanzu/carvel-kapp-controller/pkg/packageinstall"
+	packagingv1alpha1 "carvel.dev/kapp-controller/pkg/apis/packaging/v1alpha1"
+	datapackagingv1alpha1 "carvel.dev/kapp-controller/pkg/apiserver/apis/datapackaging/v1alpha1"
 	corev1 "github.com/vmware-tanzu/kubeapps/cmd/kubeapps-apis/gen/core/packages/v1alpha1"
 	"github.com/vmware-tanzu/kubeapps/cmd/kubeapps-apis/plugins/pkg/connecterror"
 	"github.com/vmware-tanzu/kubeapps/cmd/kubeapps-apis/plugins/pkg/k8sutils"
@@ -732,7 +731,7 @@ func (s *Server) UpdateInstalledPackage(ctx context.Context, request *connect.Re
 		if pkgInstall.ObjectMeta.Annotations == nil { //nolint:staticcheck
 			pkgInstall.ObjectMeta.Annotations = map[string]string{} //nolint:staticcheck
 		}
-		pkgInstall.ObjectMeta.Annotations[kappctrlpackageinstall.DowngradableAnnKey] = "" //nolint:staticcheck
+		pkgInstall.ObjectMeta.Annotations[downgradableAnnKey] = "" //nolint:staticcheck
 	}
 
 	// Update the rest of the fields
@@ -764,11 +763,11 @@ func (s *Server) UpdateInstalledPackage(ctx context.Context, request *connect.Re
 		}
 
 		if updatedSecret != nil {
-			// Similar logic as in https://github.com/vmware-tanzu/carvel-kapp-controller/blob/v0.32.0/cli/pkg/kctrl/cmd/package/installed/create_or_update.go#L505
+			// Similar logic as in https://carvel.dev/kapp-controller/blob/v0.32.0/cli/pkg/kctrl/cmd/package/installed/create_or_update.go#L505
 			pkgInstall.Spec.Values = []packagingv1alpha1.PackageInstallValues{{
 				SecretRef: &packagingv1alpha1.PackageInstallValuesSecretRef{
 					// The secret name should have the format: <name>-<namespace> as per:
-					// https://github.com/vmware-tanzu/carvel-kapp-controller/blob/v0.32.0/cli/pkg/kctrl/cmd/package/installed/created_resource_annotations.go#L19
+					// https://carvel.dev/kapp-controller/blob/v0.32.0/cli/pkg/kctrl/cmd/package/installed/created_resource_annotations.go#L19
 					Name: updatedSecret.Name,
 				},
 			}}

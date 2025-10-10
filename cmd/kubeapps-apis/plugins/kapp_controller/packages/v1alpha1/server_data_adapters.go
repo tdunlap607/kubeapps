@@ -15,10 +15,9 @@ import (
 
 	"carvel.dev/vendir/pkg/vendir/versions"
 	vendirversions "carvel.dev/vendir/pkg/vendir/versions/v1alpha1"
-	kappctrlv1alpha1 "github.com/vmware-tanzu/carvel-kapp-controller/pkg/apis/kappctrl/v1alpha1"
-	packagingv1alpha1 "github.com/vmware-tanzu/carvel-kapp-controller/pkg/apis/packaging/v1alpha1"
-	datapackagingv1alpha1 "github.com/vmware-tanzu/carvel-kapp-controller/pkg/apiserver/apis/datapackaging/v1alpha1"
-	kappctrlpackageinstall "github.com/vmware-tanzu/carvel-kapp-controller/pkg/packageinstall"
+	kappctrlv1alpha1 "carvel.dev/kapp-controller/pkg/apis/kappctrl/v1alpha1"
+	packagingv1alpha1 "carvel.dev/kapp-controller/pkg/apis/packaging/v1alpha1"
+	datapackagingv1alpha1 "carvel.dev/kapp-controller/pkg/apiserver/apis/datapackaging/v1alpha1"
 	corev1 "github.com/vmware-tanzu/kubeapps/cmd/kubeapps-apis/gen/core/packages/v1alpha1"
 	kappcorev1 "github.com/vmware-tanzu/kubeapps/cmd/kubeapps-apis/gen/plugins/kapp_controller/packages/v1alpha1"
 	"github.com/vmware-tanzu/kubeapps/cmd/kubeapps-apis/plugins/pkg/pkgutils"
@@ -42,6 +41,12 @@ const (
 
 	sshAuthKnownHosts = "ssh-knownhosts"
 	bearerAuthToken   = "token"
+
+	// DowngradableAnnKey specifies annotation that user can place on
+	// PackageInstall to indicate that lower version of the package
+	// can be selected vs whats currently installed.
+	// See: https://carvel.dev/kapp-controller/docs/v0.32.0/package-consumer-concepts/#downgrading
+	downgradableAnnKey = "packaging.carvel.dev/downgradable"
 )
 
 // available packages
@@ -328,7 +333,7 @@ func (s *Server) buildInstalledPackageDetail(pkgInstall *packagingv1alpha1.Packa
 
 func (s *Server) buildSecret(installedPackageName, values, targetNamespace string) (*k8scorev1.Secret, error) {
 	// Using this pattern as per:
-	// https://github.com/vmware-tanzu/carvel-kapp-controller/blob/v0.36.1/cli/pkg/kctrl/cmd/package/installed/created_resource_annotations.go#L19
+	// https://carvel.dev/kapp-controller/blob/v0.36.1/cli/pkg/kctrl/cmd/package/installed/created_resource_annotations.go#L19
 	// #nosec G101
 	kappctrlSecretName := "%s-%s-values"
 
@@ -343,7 +348,7 @@ func (s *Server) buildSecret(installedPackageName, values, targetNamespace strin
 		},
 		Data: map[string][]byte{
 			// Using "values.yaml" as per:
-			// https://github.com/vmware-tanzu/carvel-kapp-controller/blob/v0.32.0/cli/pkg/kctrl/cmd/package/installed/create_or_update.go#L32
+			// https://carvel.dev/kapp-controller/blob/v0.32.0/cli/pkg/kctrl/cmd/package/installed/create_or_update.go#L32
 			"values.yaml": []byte(values),
 		},
 		Type: "Opaque",
@@ -398,7 +403,7 @@ func (s *Server) buildPkgInstall(installedPackageName, targetCluster, targetName
 	// Allow this PackageInstall to be downgraded
 	// https://carvel.dev/kapp-controller/docs/v0.32.0/package-consumer-concepts/#downgrading
 	if s.pluginConfig.defaultAllowDowngrades {
-		pkgInstall.ObjectMeta.Annotations[kappctrlpackageinstall.DowngradableAnnKey] = "" //nolint:staticcheck
+		pkgInstall.ObjectMeta.Annotations[downgradableAnnKey] = "" //nolint:staticcheck
 	}
 
 	if reconciliationOptions != nil {
@@ -410,11 +415,11 @@ func (s *Server) buildPkgInstall(installedPackageName, targetCluster, targetName
 	}
 
 	if secret != nil {
-		// Similar logic as in https://github.com/vmware-tanzu/carvel-kapp-controller/blob/v0.32.0/cli/pkg/kctrl/cmd/package/installed/create_or_update.go#L505
+		// Similar logic as in https://carvel.dev/kapp-controller/blob/v0.32.0/cli/pkg/kctrl/cmd/package/installed/create_or_update.go#L505
 		pkgInstall.Spec.Values = []packagingv1alpha1.PackageInstallValues{{
 			SecretRef: &packagingv1alpha1.PackageInstallValuesSecretRef{
 				// The secret name should have the format: <name>-<namespace> as per:
-				// https://github.com/vmware-tanzu/carvel-kapp-controller/blob/v0.32.0/cli/pkg/kctrl/cmd/package/installed/created_resource_annotations.go#L19
+				// https://carvel.dev/kapp-controller/blob/v0.32.0/cli/pkg/kctrl/cmd/package/installed/created_resource_annotations.go#L19
 				Name: secret.Name,
 			},
 		}}
