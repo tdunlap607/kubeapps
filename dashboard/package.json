@@ -132,6 +132,7 @@
   "resolutions": {
     "@types/react": "^17.0.80",
     "on-headers": ">=1.1.0",
+    "sha.js": "^2.4.12",
     "swagger-ui-react/react": "^17.0.2",
     "swagger-ui-react/react-dom": "^17.0.2",
     "swagger-ui-react/react-redux": "^7.2.9"
