@@ -135,7 +135,10 @@
     "sha.js": "^2.4.12",
     "swagger-ui-react/react": "^17.0.2",
     "swagger-ui-react/react-dom": "^17.0.2",
-    "swagger-ui-react/react-redux": "^7.2.9"
+    "swagger-ui-react/react-redux": "^7.2.9",
+    "form-data": ">=3.0.4",
+    "braces": ">=3.0.3",
+    "dompurify": ">=3.2.4"
   },
   "jest": {
     "resetMocks": false,
