@@ -14,9 +14,9 @@ import (
 	"github.com/vmware-tanzu/kubeapps/cmd/kubeapps-apis/plugins/pkg/resources"
 	"k8s.io/client-go/kubernetes"
 
-	kappctrlv1alpha1 "carvel.dev/kapp-controller/pkg/apis/kappctrl/v1alpha1"
-	packagingv1alpha1 "carvel.dev/kapp-controller/pkg/apis/packaging/v1alpha1"
-	datapackagingv1alpha1 "carvel.dev/kapp-controller/pkg/apiserver/apis/datapackaging/v1alpha1"
+	kappctrlv1alpha1 "github.com/vmware-tanzu/carvel-kapp-controller/pkg/apis/kappctrl/v1alpha1"
+	packagingv1alpha1 "github.com/vmware-tanzu/carvel-kapp-controller/pkg/apis/packaging/v1alpha1"
+	datapackagingv1alpha1 "github.com/vmware-tanzu/carvel-kapp-controller/pkg/apiserver/apis/datapackaging/v1alpha1"
 	ctlapp "github.com/vmware-tanzu/carvel-kapp/pkg/kapp/app"
 	ctlres "github.com/vmware-tanzu/carvel-kapp/pkg/kapp/resources"
 	corev1 "github.com/vmware-tanzu/kubeapps/cmd/kubeapps-apis/gen/core/packages/v1alpha1"
@@ -45,7 +45,7 @@ const (
 
 // Dynamic ResourceInterface getters to encapsulate the logic of getting the proper group version API resources
 
-// See https://carvel.dev/kapp-controller/docs/latest/packaging/#package-cr
+// See https://github.com/vmware-tanzu/carvel-kapp-controller/docs/latest/packaging/#package-cr
 func (s *Server) getPkgResource(headers http.Header, cluster, namespace string) (dynamic.ResourceInterface, error) {
 	dynClient, err := s.clientGetter.Dynamic(headers, cluster)
 	if err != nil {
@@ -59,7 +59,7 @@ func (s *Server) getPkgResource(headers http.Header, cluster, namespace string) 
 	return ri, nil
 }
 
-// See https://carvel.dev/kapp-controller/docs/latest/packaging/#package-metadata
+// See https://github.com/vmware-tanzu/carvel-kapp-controller/docs/latest/packaging/#package-metadata
 func (s *Server) getPkgMetadataResource(headers http.Header, cluster, namespace string) (dynamic.ResourceInterface, error) {
 	dynClient, err := s.clientGetter.Dynamic(headers, cluster)
 	if err != nil {
@@ -73,7 +73,7 @@ func (s *Server) getPkgMetadataResource(headers http.Header, cluster, namespace 
 	return ri, nil
 }
 
-// See https://carvel.dev/kapp-controller/docs/latest/packaging/#package-install
+// See https://github.com/vmware-tanzu/carvel-kapp-controller/docs/latest/packaging/#package-install
 func (s *Server) getPkgInstallResource(headers http.Header, cluster, namespace string) (dynamic.ResourceInterface, error) {
 	dynClient, err := s.clientGetter.Dynamic(headers, cluster)
 	if err != nil {
@@ -87,7 +87,7 @@ func (s *Server) getPkgInstallResource(headers http.Header, cluster, namespace s
 	return ri, nil
 }
 
-// See https://carvel.dev/kapp-controller/docs/latest/packaging/#packagerepository-cr
+// See https://github.com/vmware-tanzu/carvel-kapp-controller/docs/latest/packaging/#packagerepository-cr
 func (s *Server) getPkgRepositoryResource(headers http.Header, cluster, namespace string) (dynamic.ResourceInterface, error) {
 	dynClient, err := s.clientGetter.Dynamic(headers, cluster)
 	if err != nil {
@@ -101,7 +101,7 @@ func (s *Server) getPkgRepositoryResource(headers http.Header, cluster, namespac
 	return ri, nil
 }
 
-// See https://carvel.dev/kapp-controller/docs/latest/app-spec/
+// See https://github.com/vmware-tanzu/carvel-kapp-controller/docs/latest/app-spec/
 func (s *Server) getAppResource(headers http.Header, cluster, namespace string) (dynamic.ResourceInterface, error) {
 	dynClient, err := s.clientGetter.Dynamic(headers, cluster)
 	if err != nil {
@@ -560,7 +560,7 @@ func getAppUsedGVs(appsClient ctlapp.Apps, packageId string, namespace string, u
 
 	// Workaround to also support pre-0.47 kapp versions, whose ConfigMap were suffixed with "-ctrl" instead of ".apps.k14s.io"
 	if !useNewCtrlAppSuffix {
-		// As per https://carvel.dev/kapp-controller/blob/v0.32.0/pkg/deploy/kapp.go#L151
+		// As per https://github.com/vmware-tanzu/carvel-kapp-controller/blob/v0.32.0/pkg/deploy/kapp.go#L151
 		appName = fmt.Sprintf("%s%s", packageId, "-ctrl")
 	}
 
